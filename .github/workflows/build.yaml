@@ -32,10 +32,11 @@ jobs:
           pyinstaller --noconfirm --onefile --windowed main.py  # adjust to your entry script
           
       - name: Upload executable artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MyApp
           path: dist/*
+
       
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
