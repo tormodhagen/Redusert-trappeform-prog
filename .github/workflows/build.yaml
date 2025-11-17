@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  releases: write
+  packages: write
 
 jobs:
   build:
