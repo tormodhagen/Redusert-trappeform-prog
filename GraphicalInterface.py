@@ -85,6 +85,9 @@ class MatrixSolverApp:
         self.btn_create_matrix.pack(pady=5)
 
     def create_matrix_entries(self):
+        # Remove old matrix frame if it exists
+        if hasattr(self, "frame_matrix") and self.frame_matrix is not None:
+            self.frame_matrix.destroy()
         try:
             m = int(self.entry_m.get())
             n = int(self.entry_n.get())
