@@ -36,7 +36,7 @@ jobs:
       # 4. Build executable
       - name: Build executable
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name main.exe main.py
+          pyinstaller --noconfirm --onefile --windowed --name RREF.exe main.py
 
       # 5. Upload workflow artifact with unique name
       - name: Upload executable artifact
