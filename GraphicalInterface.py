@@ -69,7 +69,7 @@ class StepByStepViewer:
 class MatrixSolverApp:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Gauss-Jordan Matrisesolver")
+        self.root.title("Gauss-Jordan Matriseløser")
         self.matrix_entries = []
         self.viewer = None
 
@@ -88,6 +88,9 @@ class MatrixSolverApp:
         # Remove old matrix frame if it exists
         if hasattr(self, "frame_matrix") and self.frame_matrix is not None:
             self.frame_matrix.destroy()
+        if hasattr(self, "submit_btn") and self.submit_btn is not None:
+            self.submit_btn.destroy()
+                   
         try:
             m = int(self.entry_m.get())
             n = int(self.entry_n.get())
