@@ -69,7 +69,7 @@ class StepByStepViewer:
 class MatrixSolverApp:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Gauss-Jordan Matriseløser")
+        self.root.title("Gauss-Jordan Matriseløser - godtar uttrykk samt math og numpy konstanter i input")
         self.matrix_entries = []
         self.viewer = None
 
