@@ -1,0 +1,1 @@
+## App skrevet i python med Tkinter gui som løser en vilkårlig mxn matrise i redusert trappeform, og samtidig gir en stegvis forklaring bak radoperasjonene
