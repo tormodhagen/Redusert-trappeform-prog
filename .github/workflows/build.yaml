@@ -5,6 +5,10 @@ on:
     branches: [master]  # or your default branch
   pull_request:
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
     runs-on: windows-latest   # can also use windows-latest or macos-latest
