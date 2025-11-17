@@ -2,7 +2,7 @@ name: Build and Release Executables
 
 on:
   push:
-    branches: [master]  # your main branch
+    branches: [master]
   pull_request:
 
 permissions:
@@ -11,10 +11,9 @@ permissions:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]  # Add macos-latest if needed
         python-version: [3.11]
 
     steps:
@@ -39,12 +38,11 @@ jobs:
         run: |
           pyinstaller --noconfirm --onefile --windowed --name main.exe main.py
 
-
-      # 5. Upload as workflow artifact (optional, temporary storage)
+      # 5. Upload workflow artifact with unique name
       - name: Upload executable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: main
+          name: main-${{ github.run_number }}
           path: dist/main.exe
 
       # 6. Create a unique git tag
@@ -65,3 +63,4 @@ jobs:
           files: dist/main.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
