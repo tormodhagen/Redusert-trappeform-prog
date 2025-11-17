@@ -1,46 +1,52 @@
-name: Build Executables
+name: Build and Release Executables
 
 on:
   push:
-    branches: [master]  # or your default branch
+    branches: [master]  # your main branch
   pull_request:
 
 permissions:
   contents: write
-  packages: write
+  releases: write
 
 jobs:
   build:
-    runs-on: windows-latest   # can also use windows-latest or macos-latest
-
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: [3.11]  # Python versions to test/build
+        os: [windows-latest, ubuntu-latest]  # Add macos-latest if needed
+        python-version: [3.11]
 
     steps:
+      # 1. Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2. Setup Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
+      # 3. Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller -r requirements.txt
 
+      # 4. Build executable
       - name: Build executable
         run: |
-          pyinstaller --noconfirm --onefile --windowed main.py  # adjust to your entry script
-          
+          pyinstaller --noconfirm --onefile --windowed main.py  # adjust entry script
+
+      # 5. Upload as workflow artifact (optional, temporary storage)
       - name: Upload executable artifact
         uses: actions/upload-artifact@v4
         with:
           name: RREFApp
           path: dist/*
 
+      # 6. Create a unique git tag
       - name: Create tag
         shell: pwsh
         run: |
@@ -50,18 +56,11 @@ jobs:
           git tag $TAG
           git push origin $TAG
 
-
-
-      
-      - name: Create GitHub Release
+      # 7. Create GitHub release and upload executable
+      - name: Create Release & Upload Assets
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
+          files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Release Asset
-        uses: softprops/action-gh-release@v1
-        with:
-          files: dist/*
-
