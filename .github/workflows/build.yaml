@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: main-${{ github.run_number }}
-          path: dist/main.exe
+          path: dist/RREF.exe
 
       # 6. Create a unique git tag
       - name: Create tag
@@ -60,7 +60,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
-          files: dist/main.exe
+          files: dist/RREF.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
