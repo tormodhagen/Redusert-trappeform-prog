@@ -37,14 +37,15 @@ jobs:
       # 4. Build executable
       - name: Build executable
         run: |
-          pyinstaller --noconfirm --onefile --windowed main.py  # adjust entry script
+          pyinstaller --noconfirm --onefile --windowed --name main.exe main.py
+
 
       # 5. Upload as workflow artifact (optional, temporary storage)
       - name: Upload executable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: RREFApp
-          path: dist/*
+          name: main
+          path: dist/main.exe
 
       # 6. Create a unique git tag
       - name: Create tag
@@ -61,6 +62,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
-          files: dist/*
+          files: dist/main.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
