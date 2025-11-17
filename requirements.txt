@@ -1,2 +1,2 @@
-pyinstaller==5.14.0
-numpy==1.27.2
+pyinstaller
+numpy
